@@ -316,3 +316,30 @@ def install_docker(ctx):
     ctx.run('sudo apt-get install docker-compose -y')
 
     print("** Done! install_docker **")
+
+@task
+def install(ctx):
+    print(
+"""
+Go to the docker directory where the project is located:
+
+cd /path/to/online_test/docker
+Build the docker images
+
+invoke build
+Run the containers and scripts necessary to deploy the web application
+
+invoke begin
+Make sure that all the containers are Up and stable
+
+invoke status
+Run the containers and scripts necessary to deploy the web application, --fixtures allows you to load fixtures.
+
+invoke deploy --fixtures
+To stop the containers, run
+invoke halt
+You can use invoke restart to restart the containers without removing them.
+Remove the containers
+invoke remove
+You can use invoke --list to get a list of all the available commands.
+""")
