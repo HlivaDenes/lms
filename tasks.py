@@ -285,3 +285,34 @@ def remove(ctx):
     remove_dir(sql_dir)
     ctx.run(cmd)
     print("** Done! Removed containers **")
+
+@task
+def install_docker(ctx):
+    print("** Start install_docker **")
+
+    print("** apt update **")
+    ctx.run("sudo apt-get update")
+
+    print("** apt install ... **")
+    ctx.run("sudo apt-get install -y apt-transport-https ca-certificates curl software-properties-common")
+
+    print("** apt-key add **")
+    ctx.run("curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -")
+
+    print("** apt-key fingerprint **")
+    ctx.run("sudo apt-key fingerprint 0EBFCD88")
+
+    print("** add-apt repository **")
+    ctx.run('sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"')
+
+    print("** apt update upgrade **")
+    ctx.run('sudo apt-get update')
+    ctx.run('sudo apt-get upgrade -y')
+    
+    print("** apt install docker-ce **")
+    ctx.run('sudo apt-get install docker-ce -y')
+
+    print("** apt install docker-compose **")
+    ctx.run('sudo apt-get install docker-compose -y')
+
+    print("** Done! install_docker **")
